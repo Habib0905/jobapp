@@ -32,7 +32,7 @@ public class JobController {
         return new ResponseEntity<>("Job added successfully", HttpStatus.OK);
     }
 
-    @PostMapping("/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<Job> findJobById(@PathVariable Long id){
         Job job = jobService.findJobById(id);
         if(job != null){

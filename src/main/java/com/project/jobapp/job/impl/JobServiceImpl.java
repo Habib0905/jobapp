@@ -3,6 +3,7 @@ package com.project.jobapp.job.impl;
 import com.project.jobapp.job.Job;
 import com.project.jobapp.job.JobRepository;
 import com.project.jobapp.job.JobService;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -13,7 +14,7 @@ import java.util.Optional;
 @Service
 public class JobServiceImpl implements JobService {
 
-    JobRepository repo;
+    private JobRepository repo;
 
     public JobServiceImpl(JobRepository repo) {
         this.repo = repo;
@@ -37,18 +38,17 @@ public class JobServiceImpl implements JobService {
 
     @Override
     public boolean deleteJobById(Long id) {
-        try{
+        if (repo.existsById(id)) {
             repo.deleteById(id);
             return true;
         }
-        catch(Exception e){
-            return false;
-        }
+        return false;
 
 
     }
 
     @Override
+    @Transactional
     public boolean updateJob(Long id, Job updatedJob) {
         Optional<Job> jobOptional = repo.findById(id);
             if(jobOptional.isPresent()) {
