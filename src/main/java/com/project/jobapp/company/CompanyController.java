@@ -1,5 +1,6 @@
 package com.project.jobapp.company;
 
+import org.apache.coyote.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -42,5 +43,15 @@ public class CompanyController {
         } else {
             return new ResponseEntity<>("Company not found", HttpStatus.NOT_FOUND);
         }
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Company> getCompanyById(@PathVariable Long id) {
+        Company company = companyService.getComapanyById(id);
+
+        if(company == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(company, HttpStatus.OK);
     }
 }
