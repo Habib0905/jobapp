@@ -1,5 +1,6 @@
 package com.project.jobapp.job;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.project.jobapp.company.Company;
 import jakarta.persistence.*;
 
@@ -15,6 +16,7 @@ public class Job {
     private String minSalary;
     private String maxSalary;
     private String location;
+
 
     @ManyToOne
     private Company company;
